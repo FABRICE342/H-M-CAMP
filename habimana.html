@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Students & Skills Training | Rwanda 2026</title>
+  <style>
+    :root { --primary: #0f3c5c; --secondary: #ffcc00; --accent: #28a745; --danger: #dc3545; --white: #ffffff; }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+    body { background: #f8f9fa; color: #333; line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
+    
+    header { background: var(--primary); padding: 1.2rem 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
+    nav ul { list-style: none; display: flex; justify-content: center; gap: 3rem; }
+    nav ul li a { color: white; text-decoration: none; font-weight: 600; font-size: 1.15rem; transition: 0.3s; cursor: pointer; }
+    nav ul li a:hover { color: var(--secondary); }
+
+    .content { padding: 2rem 1rem; min-height: 80vh; }
+    .hidden { display: none !important; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    /* Slider */
+    .slider-container { position: relative; width: 100%; height: 70vh; overflow: hidden; background: #000; border-radius: 15px; }
+    .slides { display: flex; height: 100%; transition: 0.7s; }
+    .slide { min-width: 100%; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Category Grid */
+    .section-title { text-align: center; color: var(--primary); margin-bottom: 2rem; font-size: 2.5rem; }
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
+    .card { background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 8px 20px rgba(0,0,0,0.1); border-top: 5px solid var(--primary); transition: 0.3s; position: relative; }
+    .card:hover { transform: translateY(-5px); border-top-color: var(--secondary); }
+    .card h3 { color: var(--primary); margin-bottom: 1rem; }
+    .btn { background: var(--primary); color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; margin-top: 10px; }
+    .btn:hover { background: var(--secondary); color: var(--primary); }
+
+    /* Dashboard & Assessment */
+    .dashboard-header { background: white; padding: 1.5rem; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+    .timer-display { font-size: 1.5rem; color: var(--danger); font-weight: bold; border: 2px solid var(--danger); padding: 5px 15px; border-radius: 8px; }
+    .level-tabs { display: flex; gap: 10px; margin-bottom: 1.5rem; }
+    .tab { flex: 1; padding: 15px; border: none; background: #ddd; cursor: pointer; font-weight: bold; border-radius: 8px; }
+    .tab.active { background: var(--primary); color: white; }
+    
+    .question-box { background: white; padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem; border-left: 5px solid var(--primary); position: relative; }
+    .mark-status { position: absolute; right: 20px; top: 20px; font-size: 1.5rem; font-weight: bold; }
+    .correct { color: var(--accent); }
+    .wrong { color: var(--danger); }
+
+    /* Certificate */
+    #certificate-frame { background: white; padding: 50px; border: 20px double var(--primary); text-align: center; max-width: 800px; margin: auto; }
+
+    footer { background: var(--primary); color: white; text-align: center; padding: 2rem; margin-top: auto; }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <ul>
+      <li><a onclick="showSection('home')">HOME</a></li>
+      <li><a onclick="showSection('categories')">CATEGORIES</a></li>
+      <li><a onclick="showSection('about')">ABOUT US</a></li>
+      <li id="nav-auth"><a onclick="showSection('login')">LOGIN</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="container">
+  
+  <div id="home-section" class="content">
+    <div class="slider-container">
+      <div class="slides" id="main-slides">
+        <div class="slide"><img src="https://as2.ftcdn.net/jpg/04/82/13/39/1000_F_482133994_K68ZJALAjJm2gUGJSdtNGTaFpQAawhv7.jpg"></div>
+        <div class="slide"><img src="https://thumbs.dreamstime.com/b/young-man-programmer-coding-laptop-dark-view-lights-night-city-color-lighting-room-home-200304277.jpg"></div>
+        <div class="slide"><img src="https://media.istockphoto.com/id/1194472286/photo/students-in-cookery-class-mixing-ingredients-for-recipe-in-kitchen.jpg?s=612x612&w=0&k=20&c=VbhGpPlXcBLhGdQoFnMATuVlaaL4-dLS4yZ59kWeAnk="></div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:2rem;">
+        <h1 class="section-title">Welcome to Skills Training Rwanda</h1>
+        <p>Empowering the next generation with practical, job-ready skills in ICT, Agriculture, and Construction.</p>
+    </div>
+  </div>
+
+  <div id="categories-section" class="content hidden">
+    <h1 class="section-title">Our Training Categories</h1>
+    <div class="cards-grid">
+      <div class="card">
+        <h3>ICT & Digital Skills</h3>
+        <p>Master Software Development, Networking, and Hardware Maintenance.</p>
+        <button class="btn" onclick="startTraining('ICT')">Start Training</button>
+      </div>
+      <div class="card">
+        <h3>Agriculture</h3>
+        <p>Modern farming techniques, Agribusiness, and Crop Production.</p>
+        <button class="btn" onclick="startTraining('Agriculture')">Start Training</button>
+      </div>
+      <div class="card">
+        <h3>Construction</h3>
+        <p>Civil Engineering, Masonry, Plumbing, and Architectural Design.</p>
+        <button class="btn" onclick="startTraining('Construction')">Start Training</button>
+      </div>
+      <div class="card">
+        <h3>Culinary Arts</h3>
+        <p>Professional cooking, catering, and food safety standards.</p>
+        <button class="btn" onclick="alert('Coming Soon!')">View Level Details</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="about-section" class="content hidden">
+    <h1 class="section-title">About Us</h1>
+    <div class="card" style="max-width: 900px; margin: auto;">
+        <p><strong>Developed in 2026 by NIYOMUGABO FABRICE.</strong></p>
+        <p>Our mission is to provide high-quality vocational training to students across Rwanda without financial barriers. We believe that skills are the currency of the future. By providing structured Level 3, 4, and 5 content, we help students transition from beginners to certified professionals.</p>
+        <br>
+        <p>Each category is carefully curated with experts to meet the current labor market demands in Rwanda and East Africa.</p>
+        <br>
+        <h3>Contact Information:</h3>
+        <ul>
+            <li>Email: fabriceniyomugabo342@gmail.com</li>
+            <li>Phone: 0790071600</li>
+            <li>Location: Kigali, Rwanda</li>
+        </ul>
+    </div>
+  </div>
+
+  <div id="login-section" class="content hidden">
+    <div id="auth-box" class="card" style="max-width:500px; margin:auto;">
+        <h2>Student Access</h2>
+        <input type="text" id="login-user" placeholder="Enter Full Name" style="width:100%; padding:10px; margin:10px 0;">
+        <button class="btn" style="width:100%" onclick="doLogin()">Enter Dashboard</button>
+    </div>
+
+    <div id="profile-setup" class="card hidden" style="max-width:600px; margin:auto; text-align:center;">
+        <h2>Complete Profile</h2>
+        <p>Select your Learning Avatar</p>
+        <div style="display:flex; gap:10px; justify-content:center; margin:20px 0;">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" class="avatar-opt" onclick="pickAvatar(this)" style="width:70px; cursor:pointer; border-radius:50%; border:3px solid transparent;">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Aneka" class="avatar-opt" onclick="pickAvatar(this)" style="width:70px; cursor:pointer; border-radius:50%; border:3px solid transparent;">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=James" class="avatar-opt" onclick="pickAvatar(this)" style="width:70px; cursor:pointer; border-radius:50%; border:3px solid transparent;">
+        </div>
+        <button class="btn" onclick="finishProfile()">Save & Start Learning</button>
+    </div>
+  </div>
+
+  <div id="dashboard-section" class="content hidden">
+    <div class="dashboard-header">
+        <div style="display:flex; align-items:center; gap:15px;">
+            <img id="user-img" src="" style="width:50px; border-radius:50%;">
+            <h3 id="user-welcome">Hello Student</h3>
+        </div>
+        <div id="timer-box" class="timer-display hidden">10:00</div>
+        <button class="btn" style="background:var(--danger);" onclick="logout()">Logout</button>
+    </div>
+
+    <div id="assessment-area">
+        <div class="level-tabs">
+            <button class="tab active" id="tab3" onclick="switchLevel(3)">Level 3</button>
+            <button class="tab" id="tab4" onclick="switchLevel(4)">Level 4</button>
+            <button class="tab" id="tab5" onclick="switchLevel(5)">Level 5</button>
+        </div>
+        <div id="questions-container">
+            <div class="card" style="text-align:center;">
+                <h3>Please select a category from the "Categories" menu to begin your assessment.</h3>
+            </div>
+        </div>
+        <div id="action-btns" class="hidden" style="margin-top: 20px; text-align: center;">
+            <button class="btn" onclick="submitExam()">Submit Assessment</button>
+            <button id="cert-btn" class="btn hidden" style="background:var(--accent); margin-left:10px;" onclick="showCert()">Get Certificate</button>
+        </div>
+    </div>
+  </div>
+
+  <div id="cert-section" class="content hidden">
+    <div id="certificate-frame">
+        <h1 style="font-size:3rem; color:var(--primary);">CERTIFICATE</h1>
+        <p>This recognizes that</p>
+        <h2 id="cert-student-name" style="font-size:2rem; border-bottom:2px solid #333; display:inline-block; padding:10px 40px;">NAME</h2>
+        <p>Has completed Advanced Training in</p>
+        <h3 id="cert-category-name">CATEGORY</h3>
+        <p>Year: 2026</p>
+        <br>
+        <button class="btn" onclick="window.print()">Print PDF</button>
+        <button class="btn" onclick="showSection('categories')" style="background: #666;">Back to Lessons</button>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+    <p>© 2026 NIYOMUGABO FABRICE | Skills Training Rwanda</p>
+</footer>
+
+<script>
+/* --- DATA & QUESTIONS --- */
+const db = {
+    ICT: {
+        3: [{q: "What is RAM?", type: "mcq", options: ["Storage", "Memory", "Power"], a: 1}, {q: "List 3 Hardware components", type: "text"}],
+        4: [{q: "What does HTML stand for?", type: "mcq", options: ["HyperText", "HighText", "HomeTool"], a: 0}, {q: "Explain IP Address usage", type: "text"}],
+        5: [{q: "Which is a Server OS?", type: "mcq", options: ["Windows 10", "Linux Ubuntu", "Android"], a: 1}, {q: "Explain Cloud Computing Benefits", type: "text"}]
+    },
+    Agriculture: {
+        3: [{q: "What is Irrigation?", type: "mcq", options: ["Harvesting", "Watering", "Ploughing"], a: 1}, {q: "Name one organic fertilizer", type: "text"}],
+        4: [{q: "Best soil for crops?", type: "mcq", options: ["Sand", "Clay", "Loam"], a: 2}, {q: "Explain Crop Rotation advantages", type: "text"}],
+        5: [{q: "Define Agribusiness", type: "mcq", options: ["Farming only", "Business of farming", "Soil science"], a: 1}, {q: "Explain Hydroponics technology", type: "text"}]
+    },
+    Construction: {
+        3: [{q: "What is Concrete made of?", type: "mcq", options: ["Wood", "Cement/Sand/Stone", "Glass"], a: 1}, {q: "Name essential safety gear", type: "text"}],
+        4: [{q: "What is a Blueprint?", type: "mcq", options: ["A tool", "A map/plan", "A color"], a: 1}, {q: "Explain Foundation depth importance", type: "text"}],
+        5: [{q: "What is Civil Engineering?", type: "mcq", options: ["Painting", "Infrastructure Design", "Gardening"], a: 1}, {q: "Describe Reinforced Concrete", type: "text"}]
+    }
+};
+
+let currentUser = JSON.parse(localStorage.getItem('rw_user')) || null;
+let activeCat = '';
+let activeLvl = 3;
+let timeLeft = 600;
+let timer;
+
+/* --- NAVIGATION --- */
+function showSection(id) {
+    document.querySelectorAll('.content').forEach(s => s.classList.add('hidden'));
+    const target = document.getElementById(id + '-section');
+    if(target) target.classList.remove('hidden');
+    
+    if(id === 'login' && currentUser) {
+        showSection('dashboard');
+        updateDash();
+    }
+}
+
+/* --- AUTH & PROFILE --- */
+function doLogin() {
+    const name = document.getElementById('login-user').value;
+    if(!name) return alert("Enter name");
+    document.getElementById('auth-box').classList.add('hidden');
+    document.getElementById('profile-setup').classList.remove('hidden');
+}
+
+function pickAvatar(el) {
+    document.querySelectorAll('.avatar-opt').forEach(img => img.style.borderColor = 'transparent');
+    el.style.borderColor = 'var(--secondary)';
+    currentUser = { name: document.getElementById('login-user').value, avatar: el.src };
+}
+
+function finishProfile() {
+    if(!currentUser || !currentUser.avatar) return alert("Select an avatar");
+    localStorage.setItem('rw_user', JSON.stringify(currentUser));
+    updateDash();
+    showSection('dashboard');
+}
+
+function updateDash() {
+    document.getElementById('user-welcome').innerText = "Student: " + currentUser.name;
+    document.getElementById('user-img').src = currentUser.avatar;
+    document.getElementById('nav-auth').innerHTML = `<a onclick="showSection('login')">DASHBOARD</a>`;
+}
+
+/* --- ASSESSMENT --- */
+function startTraining(cat) {
+    if(!currentUser) {
+        alert("Please login first to track your progress.");
+        showSection('login');
+        return;
+    }
+    activeCat = cat;
+    showSection('dashboard');
+    document.getElementById('action-btns').classList.remove('hidden');
+    switchLevel(3);
+}
+
+function switchLevel(lvl) {
+    activeLvl = lvl;
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    const activeTab = document.getElementById('tab'+lvl);
+    if(activeTab) activeTab.classList.add('active');
+    renderQuestions();
+    startTimer();
+}
+
+function renderQuestions() {
+    const container = document.getElementById('questions-container');
+    if(!activeCat) return;
+    container.innerHTML = `<h2 style='color:var(--primary); margin-bottom:15px;'>${activeCat} - Level ${activeLvl} Assessment</h2>`;
+    db[activeCat][activeLvl].forEach((item, i) => {
+        let html = `<div class="question-box" id="qbox-${i}">
+            <p><strong>${i+1}. ${item.q}</strong></p>`;
+        if(item.type === 'mcq') {
+            item.options.forEach((o, oi) => {
+                html += `<label style="display:block; cursor:pointer;"><input type="radio" name="ans${i}" value="${oi}"> ${o}</label>`;
+            });
+        } else {
+            html += `<textarea id="ans${i}" rows="3" style="width:100%; padding:10px; border-radius:5px;" placeholder="Write your answer here..."></textarea>`;
+        }
+        html += `<div class="mark-status" id="mark-${i}"></div></div>`;
+        container.innerHTML += html;
+    });
+}
+
+function startTimer() {
+    clearInterval(timer);
+    timeLeft = 600;
+    document.getElementById('timer-box').classList.remove('hidden');
+    timer = setInterval(() => {
+        timeLeft--;
+        let m = Math.floor(timeLeft/60);
+        let s = timeLeft%60;
+        document.getElementById('timer-box').innerText = `${m}:${s < 10 ? '0'+s : s}`;
+        if(timeLeft <= 0) {
+            clearInterval(timer);
+            alert("Time is up! Submitting your answers.");
+            submitExam();
+        }
+    }, 1000);
+}
+
+function submitExam() {
+    clearInterval(timer);
+    let score = 0;
+    const items = db[activeCat][activeLvl];
+    items.forEach((item, i) => {
+        const mark = document.getElementById('mark-'+i);
+        if(item.type === 'mcq') {
+            const sel = document.querySelector(`input[name="ans${i}"]:checked`);
+            if(sel && parseInt(sel.value) === item.a) {
+                mark.innerText = "✓"; mark.className = "mark-status correct"; score++;
+            } else {
+                mark.innerText = "✗"; mark.className = "mark-status wrong";
+            }
+        } else {
+            const text = document.getElementById('ans'+i).value;
+            if(text.length > 5) {
+                mark.innerText = "✓"; mark.className = "mark-status correct"; score++;
+            } else {
+                mark.innerText = "✗"; mark.className = "mark-status wrong";
+            }
+        }
+    });
+
+    if(score === items.length) {
+        alert("Level Passed!");
+        if(activeLvl === 5) document.getElementById('cert-btn').classList.remove('hidden');
+    } else {
+        alert("Review your marks. Some answers are incorrect.");
+    }
+}ss
+
+function showCert() {
+    document.getElementById('cert-student-name').innerText = currentUser.name.toUpperCase();
+    document.getElementById('cert-category-name').innerText = activeCat + " (Level 5 Certified)";
+    showSection('cert');
+}
+
+function logout() {
+    localStorage.clear();
+    location.reload();
+}
+
+/* Slider Logic */
+let sIdx = 0;
+setInterval(() => {
+    sIdx = (sIdx + 1) % 3;
+    document.getElementById('main-slides').style.transform = `translateX(-${sIdx * 100}%)`;
+}, 4000);
+
+if(currentUser) updateDash();
+</script>
+</body>
+</html>
